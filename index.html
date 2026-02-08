@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Briefing Landing Page — Formulário</title>
+  <meta name="theme-color" content="#18C37E" />
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --card: rgba(9, 20, 14, 0.04);
+      --stroke: rgba(9, 20, 14, 0.10);
+      --text: rgba(9, 20, 14, 0.92);
+      --muted: rgba(9, 20, 14, 0.62);
+      --green: #18C37E;
+      --green2:#0EA765;
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(24,195,126,.14), transparent 55%),
+        radial-gradient(900px 500px at 90% 0%, rgba(14,167,101,.10), transparent 60%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .wrap{
+      width:min(980px, calc(100% - 32px));
+      margin: 28px auto 60px;
+    }
+
+    header{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .dot{
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      box-shadow: 0 10px 22px rgba(24,195,126,.35);
+    }
+    h1{
+      font-size: 1.2rem;
+      margin:0;
+      letter-spacing: -0.02em;
+    }
+    .sub{
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      font-size:.9rem;
+      color: var(--muted);
+      background: rgba(24,195,126,.08);
+      border: 1px solid rgba(24,195,126,.22);
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .card{
+      background: rgba(255,255,255,.75);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 820px){
+      .grid{ grid-template-columns: 1fr; }
+      header{ align-items:flex-start; flex-direction:column; }
+    }
+
+    .section{
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(9,20,14,.16);
+    }
+    .section:first-child{
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+    .help{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.35;
+    }
+
+    label{
+      display:block;
+      font-size: .9rem;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+
+    input, textarea, select{
+      width:100%;
+      border: 1px solid var(--stroke);
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px 12px;
+      font-size: 1rem;
+      outline: none;
+      transition: .18s ease;
+      color: var(--text);
+    }
+    textarea{ min-height: 92px; resize: vertical; }
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(24,195,126,.55);
+      box-shadow: 0 0 0 4px rgba(24,195,126,.14);
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 640px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
+    .checks{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 14px;
+      margin-top: 6px;
+    }
+    @media (max-width: 640px){
+      .checks{ grid-template-columns: 1fr; }
+    }
+
+    .check{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(24,195,126,.18);
+      background: rgba(24,195,126,.06);
+    }
+    .check input{ width:auto; margin-top: 2px; }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-end;
+      margin-top: 14px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border: 0;
+      cursor:pointer;
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    }
+    .btn-primary{
+      color: #fff;
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      box-shadow: 0 18px 32px rgba(24,195,126,.22);
+    }
+    .btn-primary:hover{ transform: translateY(-1px); }
+    .btn-ghost{
+      background: #fff;
+      border: 1px solid var(--stroke);
+      color: var(--text);
+    }
+    .btn-ghost:hover{ box-shadow: 0 10px 22px rgba(0,0,0,.08); }
+
+    .status{
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.75);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.35;
+    }
+    .status strong{ color: var(--text); }
+    .badge{
+      width: 10px; height:10px; border-radius: 999px;
+      background: rgba(0,0,0,.18);
+    }
+    .ok .badge{ background: var(--green); }
+    .err .badge{ background: #e83a3a; }
+
+    footer{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: .9rem;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="dot"></div>
+        <div>
+          <h1>Briefing de Landing Page</h1>
+          <p class="sub">Obrigado por nos escolher, tudo será tratado com zelo e profissionalismo.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span class="pill" id="draftInfo">Rascunho: não salvo</span>
+      </div>
+    </header>
+
+    <form class="card" id="briefingForm" autocomplete="on">
+      <!-- 1) IDENTIDADE -->
+      <div class="section">
+        <h2>1) Identidade do Projeto</h2>
+        <p class="help">Dados básicos para organização e contexto.</p>
+
+        <div class="grid">
+          <div>
+            <label>Nome do Projeto / Marca</label>
+            <input name="nomeProjeto" placeholder="Nome" required />
+          </div>
+          <div>
+            <label>Domínio (se houver)</label>
+            <input name="dominio" placeholder="Ex: minhaempresa.com.br" />
+          </div>
+          <div>
+            <label>Responsável / Expert</label>
+            <input name="expert" placeholder="" />
+          </div>
+          <div>
+            <label>Cidade / Estado (opcional)</label>
+            <input name="local" placeholder="Ex: Belo Horizonte/MG" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 2) NICHO & POSICIONAMENTO -->
+      <div class="section">
+        <h2>2) Nicho & Negócio</h2>
+        <div class="grid">
+          <div>
+            <label>Nicho</label>
+            <input name="nicho" placeholder="Ex: Direito Previdenciário" required />
+          </div>
+          <div>
+            <label>Tipo de negócio</label>
+            <select name="tipoNegocio" required>
+              <option value="" selected disabled>Selecione</option>
+              <option>Serviço</option>
+              <option>Produto físico</option>
+              <option>Produto digital (curso/ebook/mentoria)</option>
+              <option>SaaS / Plataforma</option>
+              <option>Evento</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div>
+            <label>Modelo de venda</label>
+            <select name="modeloVenda">
+              <option value="" selected disabled>Selecione</option>
+              <option>Lead (WhatsApp/Form)</option>
+              <option>Venda direta</option>
+              <option>Agendamento</option>
+              <option>Lançamento</option>
+              <option>Autoridade/Branding</option>
+            </select>
+          </div>
+          <div>
+            <label>CTA principal (ação desejada)</label>
+            <input name="cta" placeholder='Ex: "Falar no WhatsApp" / "Comprar agora"' />
+          </div>
+        </div>
+      </div>
+
+      <!-- 3) VISUAIS -->
+      <div class="section">
+        <h2>3) Materiais Visuais</h2>
+        <p class="help">Cole links (Drive, Dropbox, OneDrive) ou descreva.</p>
+
+        <div class="grid">
+          <div>
+            <label>Foto (link ou descrição)</label>
+            <textarea name="foto" placeholder="Cole o link da pasta ou descreva o que tem."></textarea>
+          </div>
+          <div>
+            <label>Vídeo (link ou descrição)</label>
+            <textarea name="video" placeholder="Cole o link do vídeo ou descreva."></textarea>
+          </div>
+
+          <div>
+            <label>Melhor Foto (link / nome do arquivo)</label>
+            <input name="melhorFoto" placeholder="Ex: /Drive/foto-hero.jpg" />
+          </div>
+          <div>
+            <label>Melhor Vídeo (link / nome do arquivo)</label>
+            <input name="melhorVideo" placeholder="Ex: /Drive/vsl-60s.mp4" />
+          </div>
+
+          <div>
+            <label>Foto Principal (Hero)</label>
+            <input name="fotoPrincipal" placeholder="Ex: foto-hero.png" />
+          </div>
+          <div>
+            <label>Foto do “Sobre a pessoa”</label>
+            <input name="fotoSobre" placeholder="Ex: foto-sobre.jpg" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 4) DESIGN -->
+      <div class="section">
+        <h2>4) Design (Cores, Fontes e Efeitos)</h2>
+
+        <div class="grid">
+          <div>
+            <label>Paleta de cores (HEX se possível)</label>
+            <textarea name="paletaCores" placeholder=""></textarea>
+          </div>
+          <div>
+            <label>Fontes desejadas</label>
+            <textarea name="fontes" placeholder="Ex: Poppins (títulos), Inter (textos), Playfair (destaques)"></textarea>
+          </div>
+        </div>
+
+        <label style="margin-top:10px;">Tipos de efeitos que você quer (marque)</label>
+        <div class="checks">
+          <label class="check"><input type="checkbox" name="efeitos" value="Gradientes suaves"> <span>Gradientes suaves</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Neon / Glow"> <span>Neon / Glow</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Cinemático (luz/sombra)"> <span>Cinemático (luz/sombra)</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Glassmorphism"> <span>Glassmorphism</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Blur / Desfoque"> <span>Blur / Desfoque</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Partículas / Formas abstratas"> <span>Partículas / Formas abstratas</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Animações suaves (scroll)"> <span>Animações suaves (scroll)</span></label>
+          <label class="check"><input type="checkbox" name="efeitos" value="Animações de impacto (hero)"> <span>Animações de impacto (hero)</span></label>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <div>
+            <label>Observações visuais (o que NÃO pode ter / o que é obrigatório)</label>
+            <textarea name="restricoes" placeholder="Ex: não usar dourado, layout clean, sem excesso de elementos..."></textarea>
+          </div>
+          <div>
+            <label>Referências (links de páginas que você gosta)</label>
+            <textarea name="referencias" placeholder="Cole 1-3 links e diga o que você gostou nelas."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5) EXTRAS -->
+<div class="section">
+  <h2>5) Extras</h2>
+
+  <div class="grid">
+    <div>
+      <label>Prazo ideal</label>
+      <input name="prazo" placeholder="Ex: Até dia 20, Em 10 dias" />
+    </div>
+
+    <div>
+      <label>Contato para retorno</label>
+      <input name="contato" placeholder="WhatsApp / Email" />
+    </div>
+
+    <div>
+      <label>Melhor data e horário para reunião</label>
+      <input
+        type="datetime-local"
+        name="dataReuniao"
+        id="dataReuniao"
+      />
+    </div>
+
+    <div>
+      <label>Observações da reunião (opcional)</label>
+      <input
+        name="obsReuniao"
+        placeholder="Ex: prefiro no período da tarde, chamada via Meet..."
+      />
+    </div>
+  </div>
+</div>
+
+      <div class="actions">
+        <button type="button" class="btn-ghost" id="btnSalvarRascunho">Salvar rascunho</button>
+        <button type="button" class="btn-ghost" id="btnLimpar">Limpar</button>
+        <button type="submit" class="btn-primary" id="btnEnviar">Enviar</button>
+      </div>
+
+      <div class="status" id="statusBox" aria-live="polite">
+        <span class="badge"></span>
+        <span><strong>Status:</strong> aguardando envio.</span>
+      </div>
+
+      <footer>Heavex</footer>
+    </form>
+  </div>
+
+  <script>
+    // ============================
+    // CONFIG
+    // ============================
+    // Cole aqui a URL do seu Apps Script Web App (passo 2 abaixo)
+    const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbwgM0zVZQDb0Fk-Jzv3e7NFXFYU44HYya2mBT_jj94TYnF6L0I1-hDEsGLG_EhcLvBVMA/exec";
+
+    const form = document.getElementById("briefingForm");
+    const statusBox = document.getElementById("statusBox");
+    const draftInfo = document.getElementById("draftInfo");
+    const btnSalvarRascunho = document.getElementById("btnSalvarRascunho");
+    const btnLimpar = document.getElementById("btnLimpar");
+
+    const DRAFT_KEY = "briefing_landingpage_draft_v1";
+
+    function setStatus(type, msg){
+      statusBox.classList.remove("ok","err");
+      if(type) statusBox.classList.add(type);
+      statusBox.querySelector("span:last-child").innerHTML = `<strong>Status:</strong> ${msg}`;
+    }
+
+    function getFormData(){
+      const fd = new FormData(form);
+
+      // Checkbox: efeitos (múltiplos)
+      const efeitos = [];
+      form.querySelectorAll('input[name="efeitos"]:checked').forEach(cb => efeitos.push(cb.value));
+
+      const data = Object.fromEntries(fd.entries());
+      data.efeitos = efeitos;
+
+      // meta
+      data.userAgent = navigator.userAgent;
+      data.pageUrl = location.href;
+      data.timestamp = new Date().toISOString();
+
+      return data;
+    }
+
+    function saveDraft(){
+      const data = getFormData();
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+      const when = new Date().toLocaleString();
+      draftInfo.textContent = `Rascunho: salvo em ${when}`;
+      setStatus("ok", "rascunho salvo localmente.");
+    }
+
+    function loadDraft(){
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if(!raw) return;
+
+      try{
+        const data = JSON.parse(raw);
+
+        // preenche inputs normais
+        Object.keys(data).forEach(key => {
+          const el = form.querySelector(`[name="${key}"]`);
+          if(!el) return;
+          if(el.type === "checkbox") return;
+          if(el.tagName === "SELECT") el.value = data[key] || "";
+          else el.value = data[key] || "";
+        });
+
+        // preenche checkboxes
+        if(Array.isArray(data.efeitos)){
+          form.querySelectorAll('input[name="efeitos"]').forEach(cb => {
+            cb.checked = data.efeitos.includes(cb.value);
+          });
+        }
+
+        draftInfo.textContent = "Rascunho: carregado do navegador";
+        setStatus("", "rascunho carregado (se quiser, revise e envie).");
+      }catch(e){}
+    }
+
+    btnSalvarRascunho.addEventListener("click", saveDraft);
+
+    btnLimpar.addEventListener("click", () => {
+      form.reset();
+      localStorage.removeItem(DRAFT_KEY);
+      draftInfo.textContent = "Rascunho: não salvo";
+      setStatus("", "formulário limpo.");
+    });
+
+    // auto-salvar a cada 20s (leve)
+    setInterval(() => {
+      // salva só se já tiver algo preenchido
+      const anyFilled = Array.from(form.querySelectorAll("input,textarea,select"))
+        .some(el => (el.type === "checkbox" ? el.checked : (el.value || "").trim().length > 0));
+      if(anyFilled) saveDraft();
+    }, 20000);
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      if(!ENDPOINT_URL || ENDPOINT_URL.includes("https://script.google.com/macros/s/AKfycbwgM0zVZQDb0Fk-Jzv3e7NFXFYU44HYya2mBT_jj94TYnF6L0I1-hDEsGLG_EhcLvBVMA/exec")){
+        setStatus("err", "você ainda não colou a URL do Apps Script no ENDPOINT_URL.");
+        return;
+      }
+
+      const payload = getFormData();
+      setStatus("", "enviando...");
+
+      try{
+        // Apps Script costuma bloquear CORS. O caminho mais estável em landing pages
+        // é usar mode:"no-cors" (envia e pronto). Você recebe na planilha.
+        await fetch(ENDPOINT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        setStatus("ok", "enviado! (confira a planilha; se estiver ok, pode limpar o rascunho).");
+        localStorage.removeItem(DRAFT_KEY);
+        draftInfo.textContent = "Rascunho: não salvo";
+        form.reset();
+      }catch(err){
+        setStatus("err", "falha ao enviar. Verifique a URL do endpoint e se o Web App está publicado.");
+      }
+
+	const reuniao = document.getElementById("dataReuniao");
+	if (reuniao) {
+ 	 const pad = (n) => String(n).padStart(2, "0");
+  	const now = new Date();
+  	const min = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  	reuniao.min = min;
+      }
+
+    });
+
+      
+
+    loadDraft();
+  </script>
+</body>
+</html>
